@@ -26,7 +26,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
         if (checkForWinner(currentPlayer)) {
           GameWinner(currentPlayer);
-        } else {
+        }
+        else if (checkForDraw()) {
+          GameDraw();
+        }
+        else {
           currentPlayer = currentPlayer === "X" ? "O" : "X";
         }
       }
@@ -50,12 +54,22 @@ window.addEventListener("DOMContentLoaded", () => {
       return combination.every(index => squares[index].textContent === player);
     });
   }
+  function checkForDraw() {
+    return [...squares].every(square => square.textContent !== "");
+  }
 
   function GameWinner(player) {
     status.textContent = `Congratulations! ${player} is the Winner!`;
     status.classList.add("you-won");
     activeGame = false;
   }
+  // Draw checker
+  function GameDraw() {
+    status.textContent = "It's a Draw!";
+    status.classList.add("you-won");
+    activeGame = false;
+  }
+
 
   // Restart game function
   function restartGame() {
